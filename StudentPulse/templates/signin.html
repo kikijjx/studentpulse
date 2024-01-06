@@ -1,0 +1,23 @@
+<!-- signin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Ваши мета-теги и другие настройки -->
+    <title>Sign In</title>
+</head>
+<body>
+
+    <h2>Sign In</h2>
+
+    <form method="post" action="{% url 'signin' %}">
+        {% csrf_token %}
+
+        <!-- Добавляем скрытое поле для передачи значения next -->
+        <input type="hidden" name="next" value="{{ next_url }}">
+
+        {{ form.as_p }}
+        <button type="submit">Sign In</button>
+    </form>
+
+</body>
+</html>

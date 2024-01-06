@@ -1,0 +1,73 @@
+<!-- Ваш шаблон user_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Ваши мета-теги и другие настройки -->
+    <title>User Profile</title>
+    <script>
+        function showLessons() {
+            document.getElementById('lessons-table').style.display = 'table';
+            document.getElementById('reviews-table').style.display = 'none';
+        }
+
+        function showReviews() {
+            document.getElementById('lessons-table').style.display = 'none';
+            document.getElementById('reviews-table').style.display = 'table';
+        }
+    </script>
+</head>
+<body>
+
+    <h2>User Profile</h2>
+    <a href="{% url 'custom_logout' %}">Logout</a>
+    <button onclick="showLessons()">Show Lessons</button>
+    <button onclick="showReviews()">Show Reviews</button>
+
+    <!-- Табличка для занятий -->
+    <table id="lessons-table" style="display: none;">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Details</th>  <!-- Добавлен новый столбец для ссылки на детали -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for lesson in user_lessons %}
+            <tr>
+                <td>{{ lesson.title }}</td>
+                <td>{{ lesson.description }}</td>
+                <td><a href="{% url 'lesson_detail' pk=lesson.id %}">Details</a></td>  <!-- Ссылка на детали -->
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <!-- Табличка для отзывов -->
+    <table id="reviews-table" style="display: none;">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Title</th>
+
+
+                <!-- Другие поля отзывов -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in user_reviews %}
+                <tr>
+                    <td>{{ review.content }}</td>
+                    <td>{{ review.lesson.title }}</td>
+                    <!-- Другие поля отзывов -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'create_lesson' %}">Create Lesson</a>
+
+
+
+</body>
+</html>

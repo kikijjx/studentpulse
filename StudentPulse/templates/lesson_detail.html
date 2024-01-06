@@ -1,0 +1,55 @@
+<!-- Ваш шаблон lesson_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Ваши мета-теги и другие настройки -->
+    <title>{{ lesson.title }} Details</title>
+</head>
+<body>
+
+    <h1>{{ lesson.title }} Details</h1>
+    <h2>{{ lesson.description }} Description</h2>
+
+    <p>Average Rating Criterion 1: {{ lesson.avg_rating_criterion1 }}</p>
+    <p>Average Rating Criterion 2: {{ lesson.avg_rating_criterion2 }}</p>
+    <p>Average Rating Criterion 3: {{ lesson.avg_rating_criterion3 }}</p>
+    <p>Average Rating Criterion 4: {{ lesson.avg_rating_criterion4 }}</p>
+
+
+    <!-- Ссылка на создание отзыва -->
+ <a href="{% url 'create_review' pk=lesson.pk %}">Создать отзыв</a>
+
+    <!-- QR-код для создания отзыва -->
+   <img src="data:image/png;base64,{{ qr_path }}" alt="QR Code for Review Creation">
+
+
+
+
+
+ <h3>All Reviews:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Content</th>
+                <th>Criterion 1</th>
+                <th>Criterion 2</th>
+                <th>Criterion 3</th>
+                <th>Criterion 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in lesson.review_set.all %}
+                <tr>
+                    <td>{{ review.user.username }}</td>
+                    <td>{{ review.content }}</td>
+                    <td>{{ review.rating_criterion1 }}</td>
+                    <td>{{ review.rating_criterion2 }}</td>
+                    <td>{{ review.rating_criterion3 }}</td>
+                    <td>{{ review.rating_criterion4 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
