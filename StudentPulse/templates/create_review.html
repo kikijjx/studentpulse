@@ -6,7 +6,7 @@
     <title>Create Review</title>
 </head>
 <body>
-
+<a href="{% url 'user_profile'%}">вернуться на профиль</a>
     <h2>Create Review</h2>
     <form method="post" action="{% url 'create_review' pk=lesson.id %}">
         {% csrf_token %}

@@ -1,17 +1,17 @@
-<!-- Ваш шаблон create_lesson.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Ваши мета-теги и другие настройки -->
-    <title>Create Lesson</title>
+    <title>Edit Review</title>
 </head>
 <body>
 <a href="{% url 'user_profile'%}">вернуться на профиль</a>
-    <h2>Create Lesson</h2>
-    <form method="post" action="{% url 'create_lesson' %}">
+    <h2>Edit Review</h2>
+
+    <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Create Lesson</button>
+        <button type="submit">Save Changes</button>
     </form>
 
 </body>

@@ -24,3 +24,5 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['content', 'rating_criterion1', 'rating_criterion2', 'rating_criterion3', 'rating_criterion4']
+
+

@@ -31,5 +31,9 @@ urlpatterns = [
     path('lesson/<int:pk>/', lesson_detail, name='lesson_detail'),
     path('lesson/<int:pk>/create_review/', create_review, name='create_review'),
     path('custom_logout/', custom_logout, name='custom_logout'),
+    path('lesson/<int:pk>/edit/', edit_lesson, name='edit_lesson'),
+    path('lesson/<int:pk>/delete/', delete_lesson, name='delete_lesson'),
+    path('review/<int:pk>/edit/', edit_review, name='edit_review'),
+    path('review/<int:pk>/delete/', delete_review, name='delete_review'),
 
 ]

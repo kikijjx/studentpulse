@@ -29,7 +29,9 @@
         <tr>
             <th>Title</th>
             <th>Description</th>
-            <th>Details</th>  <!-- Добавлен новый столбец для ссылки на детали -->
+            <th>Details</th>
+            <th>Edit</th>  <!-- Добавлен новый столбец для кнопки редактирования -->
+            <th>Delete</th>  <!-- Добавлен новый столбец для кнопки удаления -->
         </tr>
     </thead>
     <tbody>
@@ -37,7 +39,9 @@
             <tr>
                 <td>{{ lesson.title }}</td>
                 <td>{{ lesson.description }}</td>
-                <td><a href="{% url 'lesson_detail' pk=lesson.id %}">Details</a></td>  <!-- Ссылка на детали -->
+                <td><a href="{% url 'lesson_detail' pk=lesson.id %}">Details</a></td>
+                <td><a href="{% url 'edit_lesson' pk=lesson.id %}">Edit</a></td>  <!-- Ссылка на редактирование -->
+                <td><a href="{% url 'delete_lesson' pk=lesson.id %}">Delete</a></td>  <!-- Ссылка на удаление -->
             </tr>
         {% endfor %}
     </tbody>
@@ -45,25 +49,27 @@
 
     <!-- Табличка для отзывов -->
     <table id="reviews-table" style="display: none;">
-        <thead>
+    <thead>
+        <tr>
+            <th>Content</th>
+            <th>Title</th>
+
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in user_reviews %}
             <tr>
-                <th>Content</th>
-                <th>Title</th>
-
-
+                <td>{{ review.content }}</td>
+                <td>{{ review.lesson.title }}</td>
                 <!-- Другие поля отзывов -->
+                <td><a href="{% url 'edit_review' pk=review.id %}">Edit</a></td>  <!-- Ссылка на редактирование -->
+                <td><a href="{% url 'delete_review' pk=review.id %}">Delete</a></td>  <!-- Ссылка на удаление -->
             </tr>
-        </thead>
-        <tbody>
-            {% for review in user_reviews %}
-                <tr>
-                    <td>{{ review.content }}</td>
-                    <td>{{ review.lesson.title }}</td>
-                    <!-- Другие поля отзывов -->
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
 
     <a href="{% url 'create_lesson' %}">Create Lesson</a>
 

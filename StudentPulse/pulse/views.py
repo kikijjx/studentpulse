@@ -67,25 +67,6 @@ def lesson_detail(request, pk):
     return render(request, 'lesson_detail.html', {'lesson': lesson, 'qr_path': encoded_img})
 
 
-@login_required
-def create_review(request, pk):
-    lesson = get_object_or_404(Lesson, pk=pk)
-
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            form = ReviewForm(request.POST)
-            if form.is_valid():
-                review = form.save(commit=False)
-                review.lesson = lesson
-                review.user = request.user
-                review.save()
-                return redirect('user_profile')
-        else:
-            return redirect('signin', next=request.get_full_path())
-    else:
-        form = ReviewForm()
-
-    return render(request, 'create_review.html', {'form': form, 'lesson': lesson})
 
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -157,3 +138,73 @@ def create_lesson(request):
         form = LessonForm()
 
     return render(request, 'create_lesson.html', {'form': form})
+
+def edit_lesson(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+
+    if request.method == 'POST':
+        form = LessonForm(request.POST, instance=lesson)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/user_profile/')  # Перенаправление после редактирования
+    else:
+        form = LessonForm(instance=lesson)
+
+    return render(request, 'edit_lesson.html', {'form': form, 'lesson': lesson})
+
+
+def delete_lesson(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+
+    if request.method == 'POST':
+        lesson.delete()
+        return HttpResponseRedirect('/user_profile/')  # Перенаправление после удаления
+
+    return render(request, 'delete_lesson.html', {'lesson': lesson})
+
+
+
+
+
+@login_required
+def create_review(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.lesson = lesson
+                review.user = request.user
+                review.save()
+                return redirect('user_profile')
+        else:
+            return redirect('signin', next=request.get_full_path())
+    else:
+        form = ReviewForm()
+
+    return render(request, 'create_review.html', {'form': form, 'lesson': lesson})
+
+def edit_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/user_profile/')  # Перенаправление после редактирования
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, 'edit_review.html', {'form': form, 'review': review})
+
+
+def delete_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+
+    if request.method == 'POST':
+        review.delete()
+        return HttpResponseRedirect('/user_profile/')  # Перенаправление после удаления
+
+    return render(request, 'delete_review.html', {'review': review})
