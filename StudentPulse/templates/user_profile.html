@@ -1,10 +1,121 @@
-<!-- Ваш шаблон user_profile.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Ваши мета-теги и другие настройки -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        a {
+            display: block;
+            margin: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        a.table-link {
+            color: #3498db;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a.table-link:hover {
+            color: #2980b9;
+        }
+
+        a.table-link-edit {
+            color: #2ecc71;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a.table-link-edit:hover {
+            color: #27ae60;
+        }
+
+        a.table-link-delete {
+            color: #e74c3c;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a.table-link-delete:hover {
+            color: #c0392b;
+        }
+
+        a.create-link {
+            display: block;
+            margin: 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a.create-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<script>
         function showLessons() {
             document.getElementById('lessons-table').style.display = 'table';
             document.getElementById('reviews-table').style.display = 'none';
@@ -15,17 +126,13 @@
             document.getElementById('reviews-table').style.display = 'table';
         }
     </script>
-</head>
-<body>
-
     <h2>User Profile</h2>
     <a href="{% url 'custom_logout' %}">Logout</a>
     <button onclick="showLessons()">Show Lessons</button>
     <button onclick="showReviews()">Show Reviews</button>
 
-    <!-- Табличка для занятий -->
     <table id="lessons-table" style="display: none;">
-    <thead>
+        <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
@@ -45,11 +152,10 @@
             </tr>
         {% endfor %}
     </tbody>
-</table>
+    </table>
 
-    <!-- Табличка для отзывов -->
     <table id="reviews-table" style="display: none;">
-    <thead>
+         <thead>
         <tr>
             <th>Content</th>
             <th>Title</th>
@@ -69,11 +175,8 @@
             </tr>
         {% endfor %}
     </tbody>
-</table>
+    </table>
 
-    <a href="{% url 'create_lesson' %}">Create Lesson</a>
-
-
-
+    <a href="{% url 'create_lesson' %}" class="create-link">Create Lesson</a>
 </body>
 </html>

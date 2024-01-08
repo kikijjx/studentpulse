@@ -1,12 +1,71 @@
-<!-- Ваш шаблон lesson_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Ваши мета-теги и другие настройки -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ lesson.title }} Details</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+        }
+
+        p {
+            color: #777;
+            margin: 10px 0;
+        }
+
+        a {
+            display: block;
+            margin: 20px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-
     <h1>{{ lesson.title }} Details</h1>
     <h2>{{ lesson.description }} Description</h2>
 
@@ -15,18 +74,12 @@
     <p>Average Rating Criterion 3: {{ lesson.avg_rating_criterion3 }}</p>
     <p>Average Rating Criterion 4: {{ lesson.avg_rating_criterion4 }}</p>
 
+    <a href="{% url 'create_review' pk=lesson.pk %}">Создать отзыв</a>
 
-    <!-- Ссылка на создание отзыва -->
- <a href="{% url 'create_review' pk=lesson.pk %}">Создать отзыв</a>
+    <img src="data:image/png;base64,{{ qr_path }}" alt="QR Code for Review Creation">
 
-    <!-- QR-код для создания отзыва -->
-   <img src="data:image/png;base64,{{ qr_path }}" alt="QR Code for Review Creation">
-
-
-
-
-<a href="{% url 'user_profile'%}">вернуться на профиль</a>
- <h3>All Reviews:</h3>
+    <a href="{% url 'user_profile'%}">Вернуться на профиль</a>
+    <h3>All Reviews:</h3>
     <table>
         <thead>
             <tr>

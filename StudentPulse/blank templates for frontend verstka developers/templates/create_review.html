@@ -1,0 +1,18 @@
+<!-- Ваш шаблон create_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Ваши мета-теги и другие настройки -->
+    <title>Create Review</title>
+</head>
+<body>
+<a href="{% url 'user_profile'%}">вернуться на профиль</a>
+    <h2>Create Review</h2>
+    <form method="post" action="{% url 'create_review' pk=lesson.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Review</button>
+    </form>
+
+</body>
+</html>

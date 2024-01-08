@@ -7,10 +7,15 @@ from django.core.files.base import ContentFile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
+
+from mat_test import get_mat
 from pulse.forms import *
 from pulse.models import *
 import os
 from django.conf import settings
+
+from ratings_test import get_ratings
+from spam_test import get_spam
 
 
 def base(request):
@@ -171,16 +176,27 @@ def create_review(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
 
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            form = ReviewForm(request.POST)
-            if form.is_valid():
-                review = form.save(commit=False)
-                review.lesson = lesson
-                review.user = request.user
-                review.save()
-                return redirect('user_profile')
-        else:
-            return redirect('signin', next=request.get_full_path())
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            input_text = form.cleaned_data['content']
+            ratings = get_ratings(input_text)
+
+            # Проверка на спам и мат
+
+
+            # Добавьте оценки в форму
+            form.cleaned_data['rating_criterion1'] = ratings[0]
+            form.cleaned_data['rating_criterion2'] = ratings[1]
+            form.cleaned_data['rating_criterion3'] = ratings[2]
+            form.cleaned_data['rating_criterion4'] = ratings[3]
+
+            # Добавьте связь с уроком и пользователем
+            review = form.save(commit=False)
+            review.lesson = lesson
+            review.user = request.user
+            review.save()
+
+            return redirect('user_profile')
     else:
         form = ReviewForm()
 

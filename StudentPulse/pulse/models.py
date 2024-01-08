@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.urls import reverse
+
+
 class Lesson(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -14,16 +16,18 @@ class Lesson(models.Model):
         return reverse('lesson_detail', args=[str(self.id)])
 
     def avg_rating_criterion1(self):
-        return self.review_set.aggregate(avg_rating_criterion1=Avg('rating_criterion1'))['avg_rating_criterion1']
+        return round(self.review_set.aggregate(avg_rating_criterion1=Avg('rating_criterion1'))['avg_rating_criterion1'],3)
 
     def avg_rating_criterion2(self):
-        return self.review_set.aggregate(avg_rating_criterion2=Avg('rating_criterion2'))['avg_rating_criterion2']
+        return round(self.review_set.aggregate(avg_rating_criterion2=Avg('rating_criterion2'))['avg_rating_criterion2'],3)
 
     def avg_rating_criterion3(self):
-        return self.review_set.aggregate(avg_rating_criterion3=Avg('rating_criterion3'))['avg_rating_criterion3']
+        return round(self.review_set.aggregate(avg_rating_criterion3=Avg('rating_criterion3'))['avg_rating_criterion3'],3)
 
     def avg_rating_criterion4(self):
-        return self.review_set.aggregate(avg_rating_criterion4=Avg('rating_criterion4'))['avg_rating_criterion4']
+        return round(self.review_set.aggregate(avg_rating_criterion4=Avg('rating_criterion4'))['avg_rating_criterion4'],3)
+
+
 class Review(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
