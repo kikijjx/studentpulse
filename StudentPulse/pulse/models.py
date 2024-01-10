@@ -16,16 +16,20 @@ class Lesson(models.Model):
         return reverse('lesson_detail', args=[str(self.id)])
 
     def avg_rating_criterion1(self):
-        return round(self.review_set.aggregate(avg_rating_criterion1=Avg('rating_criterion1'))['avg_rating_criterion1'],3)
+        avg_rating = self.review_set.aggregate(avg_rating_criterion1=Avg('rating_criterion1'))['avg_rating_criterion1']
+        return round(avg_rating, 3) if avg_rating is not None else None
 
     def avg_rating_criterion2(self):
-        return round(self.review_set.aggregate(avg_rating_criterion2=Avg('rating_criterion2'))['avg_rating_criterion2'],3)
+        avg_rating = self.review_set.aggregate(avg_rating_criterion2=Avg('rating_criterion2'))['avg_rating_criterion2']
+        return round(avg_rating, 3) if avg_rating is not None else None
 
     def avg_rating_criterion3(self):
-        return round(self.review_set.aggregate(avg_rating_criterion3=Avg('rating_criterion3'))['avg_rating_criterion3'],3)
+        avg_rating = self.review_set.aggregate(avg_rating_criterion3=Avg('rating_criterion3'))['avg_rating_criterion3']
+        return round(avg_rating, 3) if avg_rating is not None else None
 
     def avg_rating_criterion4(self):
-        return round(self.review_set.aggregate(avg_rating_criterion4=Avg('rating_criterion4'))['avg_rating_criterion4'],3)
+        avg_rating = self.review_set.aggregate(avg_rating_criterion4=Avg('rating_criterion4'))['avg_rating_criterion4']
+        return round(avg_rating, 3) if avg_rating is not None else None
 
 
 class Review(models.Model):
